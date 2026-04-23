@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sipraw Mug Finder Quiz | Find Your Perfect Coffee Mug</title>
+    <meta
+      name="description"
+      content="Take the Sipraw Mug Finder Quiz to discover your perfect mug style in under 60 seconds. Get a personalized recommendation and direct links to shop your match."
+    />
+    <meta
+      name="keywords"
+      content="Sipraw Mug Finder Quiz, mug quiz, coffee mug recommendation, best mug for coffee, shop mugs online"
+    />
+    <meta property="og:title" content="Sipraw Mug Finder Quiz" />
+    <meta
+      property="og:description"
+      content="Answer a few quick questions and get your personalized Sipraw mug recommendation with direct product links."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <article class="quiz-card" aria-live="polite">
+        <header class="hero">
+          <p class="eyebrow">Sipraw Mug Finder Quiz</p>
+          <h1>Find Your Perfect Mug in Under 60 Seconds</h1>
+          <p class="hero-copy">
+            Not sure which mug fits your lifestyle? This quick coffee mug quiz gives you a personalized Sipraw recommendation, plus direct product links so you can shop your match instantly.
+          </p>
+          <p id="progress" class="progress">Question 1 of 5</p>
+        </header>
+
+        <div id="quiz-content" class="quiz-content fade-in">
+          <h2 id="question-text" class="question-text"></h2>
+          <div id="answers-container" class="answers-container" role="group" aria-label="Answer options"></div>
+        </div>
+
+        <div class="controls">
+          <button id="next-btn" class="btn btn-primary" type="button" disabled>Next</button>
+        </div>
+
+        <section id="result-card" class="result-card hidden" aria-live="assertive">
+          <p id="result-emoji" class="result-emoji" aria-hidden="true"></p>
+          <h2 id="result-title" class="result-title"></h2>
+          <p id="result-description" class="result-description"></p>
+          <div class="result-links">
+            <a id="result-link-primary" class="btn btn-primary link-btn" href="#" target="_blank" rel="noopener noreferrer">Shop This Mug</a>
+            <a id="result-link-secondary" class="btn btn-ghost link-btn" href="#" target="_blank" rel="noopener noreferrer">View Similar Mugs</a>
+          </div>
+          <button id="restart-btn" class="btn btn-secondary" type="button">Restart Quiz</button>
+        </section>
+      </article>
+
+      <section class="content-card seo-section" aria-label="About the Sipraw Mug Finder Quiz">
+        <h2>How the Sipraw Mug Finder Quiz Works</h2>
+        <p>
+          The Sipraw Mug Finder Quiz pairs your daily habits, design preferences, and coffee routine with a mug style that feels made for you. Whether you need heat retention for commutes or a cozy ceramic mug for slow mornings, this quiz helps you choose with confidence.
+        </p>
+        <p>
+          Every result includes direct shopping links, so you can go from recommendation to checkout in one click. It is a faster way to find the best mug for coffee, tea, and everyday use.
+        </p>
+      </section>
+
+      <section class="content-card faq-section" aria-label="Frequently asked questions">
+        <h2>FAQ</h2>
+        <details>
+          <summary>How accurate is the Sipraw Mug Finder Quiz?</summary>
+          <p>
+            The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style. It is designed to quickly match you with the most suitable mug type.
+          </p>
+        </details>
+        <details>
+          <summary>Can I shop directly from my quiz result?</summary>
+          <p>
+            Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options.
+          </p>
+        </details>
+        <details>
+          <summary>Is this quiz only for coffee drinkers?</summary>
+          <p>
+            No. The recommendations also work well for tea, hot chocolate, and other hot beverages.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How accurate is the Sipraw Mug Finder Quiz?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I shop directly from my quiz result?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this quiz only for coffee drinkers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The recommendations also work well for tea, hot chocolate, and other hot beverages."
+            }
+          }
+        ]
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
