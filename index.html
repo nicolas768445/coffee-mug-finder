@@ -1,124 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sipraw Mug Finder Quiz | Find Your Perfect Coffee Mug</title>
-    <meta
-      name="description"
-      content="Take the Sipraw Mug Finder Quiz to discover your perfect mug style in under 60 seconds. Get a personalized recommendation and direct links to shop your match."
-    />
-    <meta
-      name="keywords"
-      content="Sipraw Mug Finder Quiz, mug quiz, coffee mug recommendation, best mug for coffee, shop mugs online"
-    />
-    <meta property="og:title" content="Sipraw Mug Finder Quiz" />
-    <meta
-      property="og:description"
-      content="Answer a few quick questions and get your personalized Sipraw mug recommendation with direct product links."
-    />
-    <meta property="og:type" content="website" />
-    <meta name="robots" content="index, follow" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="page">
-      <article class="quiz-card" aria-live="polite">
-        <header class="hero">
-          <p class="eyebrow">Sipraw Mug Finder Quiz</p>
-          <h1>Find Your Perfect Mug in Under 60 Seconds</h1>
-          <p class="hero-copy">
-            Not sure which mug fits your lifestyle? This quick coffee mug quiz gives you a personalized Sipraw recommendation, plus direct product links so you can shop your match instantly.
-          </p>
-          <p id="progress" class="progress">Question 1 of 5</p>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sipraw Mug Finder Quiz | Find Your Perfect Coffee Mug</title>
+  <meta name="description" content="Take the Sipraw Mug Finder Quiz to discover your perfect mug style in under 60 seconds. Get a personalized recommendation and direct links to shop your match." />
+  <meta name="keywords" content="Sipraw Mug Finder Quiz, mug quiz, coffee mug recommendation, best mug for coffee, shop mugs online" />
+  <meta property="og:title" content="Sipraw Mug Finder Quiz" />
+  <meta property="og:description" content="Answer a few quick questions and get your personalized Sipraw mug recommendation with direct product links." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <div id="quiz-content" class="quiz-content fade-in">
-          <h2 id="question-text" class="question-text"></h2>
-          <div id="answers-container" class="answers-container" role="group" aria-label="Answer options"></div>
+    :root {
+      --cream: #fdf6ec;
+      --espresso: #2c1a0e;
+      --brown: #6b3f1f;
+      --caramel: #c47c2b;
+      --latte: #e8c99a;
+      --foam: #fff8f0;
+      --shadow: rgba(44,26,14,0.13);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--espresso);
+      min-height: 100vh;
+      background-image: radial-gradient(ellipse at 20% 20%, #f5e6d0 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 80%, #ecdcc8 0%, transparent 60%);
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--espresso);
+      margin-bottom: 16px;
+    }
+
+    .hero-copy {
+      font-size: 16px;
+      color: var(--brown);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 24px;
+    }
+
+    .progress-bar-wrap {
+      background: var(--latte);
+      border-radius: 99px;
+      height: 6px;
+      max-width: 300px;
+      margin: 0 auto 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--caramel), var(--brown));
+      border-radius: 99px;
+      transition: width 0.5s ease;
+      width: 20%;
+    }
+
+    .progress {
+      font-size: 13px;
+      color: var(--brown);
+      font-weight: 500;
+    }
+
+    /* QUIZ CARD */
+    .quiz-card {
+      background: var(--foam);
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow: 0 8px 40px var(--shadow), 0 2px 8px rgba(44,26,14,0.06);
+      margin-bottom: 32px;
+      border: 1px solid rgba(196,124,43,0.12);
+    }
+
+    .question-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 28px;
+      line-height: 1.3;
+    }
+
+    .answers-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .answer-btn {
+      background: white;
+      border: 2px solid var(--latte);
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--espresso);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .answer-btn:hover {
+      border-color: var(--caramel);
+      background: #fff9f2;
+      transform: translateX(4px);
+    }
+
+    .answer-btn.selected {
+      border-color: var(--caramel);
+      background: linear-gradient(135deg, #fff9f2, #fef3e2);
+      box-shadow: 0 4px 16px rgba(196,124,43,0.2);
+    }
+
+    .answer-btn .emoji {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* BUTTONS */
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--caramel), var(--brown));
+      color: white;
+      box-shadow: 0 4px 16px rgba(107,63,31,0.3);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(107,63,31,0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--brown);
+      border: 2px solid var(--latte);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--caramel);
+      background: #fff9f2;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--brown);
+      border: 2px solid var(--latte);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--caramel);
+      background: #fff9f2;
+    }
+
+    /* RESULT */
+    .result-card {
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .result-card.hidden { display: none; }
+
+    .result-emoji {
+      font-size: 64px;
+      margin-bottom: 16px;
+      display: block;
+      animation: bounceIn 0.6s ease;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      60% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .result-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--espresso);
+      margin-bottom: 12px;
+    }
+
+    .result-description {
+      font-size: 16px;
+      color: var(--brown);
+      line-height: 1.7;
+      max-width: 460px;
+      margin: 0 auto 28px;
+    }
+
+    .result-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    /* FAQ & SEO */
+    .content-card {
+      background: var(--foam);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(196,124,43,0.1);
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .content-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 16px;
+    }
+
+    .content-card p {
+      font-size: 15px;
+      color: var(--brown);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    details {
+      border-bottom: 1px solid var(--latte);
+      padding: 14px 0;
+    }
+
+    details:last-child { border-bottom: none; }
+
+    summary {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--espresso);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    summary::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--caramel);
+      font-weight: 300;
+    }
+
+    details[open] summary::after { content: '−'; }
+
+    details p {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Powered by footer */
+    .powered-by {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--brown);
+      opacity: 0.7;
+    }
+
+    .powered-by a {
+      color: var(--caramel);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 520px) {
+      .quiz-card { padding: 28px 20px; }
+      .result-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="hero">
+      <p class="eyebrow">Sipraw Mug Finder Quiz</p>
+      <h1>Find Your Perfect Mug in Under 60 Seconds</h1>
+      <p class="hero-copy">Not sure which mug fits your lifestyle? This quick coffee mug quiz gives you a personalized Sipraw recommendation, plus direct product links so you can shop your match instantly.</p>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+      <p id="progress" class="progress">Question 1 of 5</p>
+    </div>
+
+    <article class="quiz-card" aria-live="polite">
+      <div id="quiz-content" class="quiz-content fade-in">
+        <h2 id="question-text" class="question-text"></h2>
+        <div id="answers-container" class="answers-container" role="group" aria-label="Answer options"></div>
+      </div>
+
+      <div class="controls" id="controls">
+        <button id="next-btn" class="btn btn-primary" type="button" disabled>Next →</button>
+      </div>
+
+      <section id="result-card" class="result-card hidden" aria-live="assertive">
+        <span id="result-emoji" class="result-emoji"></span>
+        <h2 id="result-title" class="result-title"></h2>
+        <p id="result-description" class="result-description"></p>
+        <div class="result-links">
+          <a id="result-link-primary" class="btn btn-primary link-btn" href="https://sipraw.com" target="_blank" rel="noopener noreferrer">Shop This Mug ↗</a>
+          <a id="result-link-secondary" class="btn btn-ghost link-btn" href="https://sipraw.com" target="_blank" rel="noopener noreferrer">View Similar Mugs</a>
         </div>
-
-        <div class="controls">
-          <button id="next-btn" class="btn btn-primary" type="button" disabled>Next</button>
-        </div>
-
-        <section id="result-card" class="result-card hidden" aria-live="assertive">
-          <p id="result-emoji" class="result-emoji" aria-hidden="true"></p>
-          <h2 id="result-title" class="result-title"></h2>
-          <p id="result-description" class="result-description"></p>
-          <div class="result-links">
-            <a id="result-link-primary" class="btn btn-primary link-btn" href="#" target="_blank" rel="noopener noreferrer">Shop This Mug</a>
-            <a id="result-link-secondary" class="btn btn-ghost link-btn" href="#" target="_blank" rel="noopener noreferrer">View Similar Mugs</a>
-          </div>
-          <button id="restart-btn" class="btn btn-secondary" type="button">Restart Quiz</button>
-        </section>
-      </article>
-
-      <section class="content-card seo-section" aria-label="About the Sipraw Mug Finder Quiz">
-        <h2>How the Sipraw Mug Finder Quiz Works</h2>
-        <p>
-          The Sipraw Mug Finder Quiz pairs your daily habits, design preferences, and coffee routine with a mug style that feels made for you. Whether you need heat retention for commutes or a cozy ceramic mug for slow mornings, this quiz helps you choose with confidence.
-        </p>
-        <p>
-          Every result includes direct shopping links, so you can go from recommendation to checkout in one click. It is a faster way to find the best mug for coffee, tea, and everyday use.
-        </p>
+        <button id="restart-btn" class="btn btn-secondary" type="button">↩ Restart Quiz</button>
       </section>
+    </article>
 
-      <section class="content-card faq-section" aria-label="Frequently asked questions">
-        <h2>FAQ</h2>
-        <details>
-          <summary>How accurate is the Sipraw Mug Finder Quiz?</summary>
-          <p>
-            The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style. It is designed to quickly match you with the most suitable mug type.
-          </p>
-        </details>
-        <details>
-          <summary>Can I shop directly from my quiz result?</summary>
-          <p>
-            Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options.
-          </p>
-        </details>
-        <details>
-          <summary>Is this quiz only for coffee drinkers?</summary>
-          <p>
-            No. The recommendations also work well for tea, hot chocolate, and other hot beverages.
-          </p>
-        </details>
-      </section>
-    </main>
+    <section class="content-card seo-section" aria-label="About the Sipraw Mug Finder Quiz">
+      <h2>How the Sipraw Mug Finder Quiz Works</h2>
+      <p>The Sipraw Mug Finder Quiz pairs your daily habits, design preferences, and coffee routine with a mug style that feels made for you. Whether you need heat retention for commutes or a cozy ceramic mug for slow mornings, this quiz helps you choose with confidence.</p>
+      <p>Every result includes direct shopping links, so you can go from recommendation to checkout in one click. It is a faster way to find the best mug for coffee, tea, and everyday use.</p>
+    </section>
 
-    <script type="application/ld+json">
+    <section class="content-card faq-section" aria-label="Frequently asked questions">
+      <h2>FAQ</h2>
+      <details>
+        <summary>How accurate is the Sipraw Mug Finder Quiz?</summary>
+        <p>The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style. It is designed to quickly match you with the most suitable mug type.</p>
+      </details>
+      <details>
+        <summary>Can I shop directly from my quiz result?</summary>
+        <p>Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options.</p>
+      </details>
+      <details>
+        <summary>Is this quiz only for coffee drinkers?</summary>
+        <p>No. The recommendations also work well for tea, hot chocolate, and other hot beverages.</p>
+      </details>
+    </section>
+
+    <p class="powered-by">Powered by <a href="https://sipraw.com" target="_blank" rel="noopener">Sipraw.com</a></p>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"How accurate is the Sipraw Mug Finder Quiz?","acceptedAnswer":{"@type":"Answer","text":"The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style."}},
+      {"@type":"Question","name":"Can I shop directly from my quiz result?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options."}},
+      {"@type":"Question","name":"Is this quiz only for coffee drinkers?","acceptedAnswer":{"@type":"Answer","text":"No. The recommendations also work well for tea, hot chocolate, and other hot beverages."}}
+    ]
+  }
+  </script>
+
+  <script>
+    const questions = [
       {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How accurate is the Sipraw Mug Finder Quiz?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The quiz uses a weighted recommendation model based on practical use cases like commute length, drink temperature preference, and style."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I shop directly from my quiz result?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Each result includes direct links to the recommended Sipraw product page and similar mug options."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is this quiz only for coffee drinkers?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. The recommendations also work well for tea, hot chocolate, and other hot beverages."
-            }
-          }
+        text: "☀️ How do you usually start your morning?",
+        answers: [
+          { emoji: "🏃", text: "On the go — I'm always rushing", value: "travel" },
+          { emoji: "🛋️", text: "Slow and relaxed at home", value: "home" },
+          { emoji: "💼", text: "Straight to my desk to work", value: "desk" },
+          { emoji: "🌿", text: "A calm outdoor moment", value: "outdoor" }
+        ]
+      },
+      {
+        text: "🌡️ How do you like your drink temperature?",
+        answers: [
+          { emoji: "🔥", text: "Piping hot for as long as possible", value: "hot" },
+          { emoji: "😌", text: "Warm is perfect — not too hot", value: "warm" },
+          { emoji: "🧊", text: "I sometimes drink it cold too", value: "cold" },
+          { emoji: "🤷", text: "I don't really mind", value: "any" }
+        ]
+      },
+      {
+        text: "🎨 What style speaks to you most?",
+        answers: [
+          { emoji: "⚫", text: "Sleek and minimal — clean lines", value: "minimal" },
+          { emoji: "🌸", text: "Cute and colorful", value: "cute" },
+          { emoji: "🏺", text: "Earthy and artisan-crafted", value: "earthy" },
+          { emoji: "💎", text: "Premium and elegant", value: "premium" }
+        ]
+      },
+      {
+        text: "📏 How big should your mug be?",
+        answers: [
+          { emoji: "☕", text: "Small — I like strong, short drinks", value: "small" },
+          { emoji: "🥤", text: "Medium — classic size works for me", value: "medium" },
+          { emoji: "🍺", text: "Large — I need all the coffee!", value: "large" },
+          { emoji: "🔄", text: "Refillable travel size", value: "travel" }
+        ]
+      },
+      {
+        text: "🛒 What matters most when buying a mug?",
+        answers: [
+          { emoji: "💰", text: "Affordable price", value: "budget" },
+          { emoji: "🏆", text: "Top quality and durability", value: "quality" },
+          { emoji: "🎁", text: "It makes a great gift", value: "gift" },
+          { emoji: "🌱", text: "Eco-friendly materials", value: "eco" }
         ]
       }
-    </script>
-    <script src="script.js"></script>
-  </body>
+    ];
+
+    const results = {
+      travel: {
+        emoji: "🚀",
+        title: "The Travel Tumbler",
+        description: "You're always on the move! A sleek, leak-proof travel tumbler with double-wall insulation is your perfect match. Keeps your drink hot for hours while fitting in any cup holder.",
+        link: "https://sipraw.com",
+        linkAlt: "https://sipraw.com"
+      },
+      home: {
+        emoji: "🏺",
+        title: "The Artisan Ceramic Mug",
+        description: "You love slow mornings and cozy vibes. A handcrafted ceramic mug with a comfortable handle and warm earthy tones is made for you — beautiful and functional.",
+        link: "https://sipraw.com",
+        linkAlt: "https://sipraw.com"
+      },
+      desk: {
+        emoji: "💼",
+        title: "The Large Desk Mug",
+        description: "You need a reliable companion for long work sessions. A large, sturdy mug that stays warm and looks great on your desk — minimalist design, maximum capacity.",
+        link: "https://sipraw.com",
+        linkAlt: "https://sipraw.com"
+      },
+      outdoor: {
+        emoji: "🌿",
+        title: "The Eco Adventure Mug",
+        description: "You love fresh air with your fresh coffee. An eco-friendly, durable mug made from sustainable materials — perfect for outdoor moments and nature lovers.",
+        link: "https://sipraw.com",
+        linkAlt: "https://sipraw.com"
+      }
+    };
+
+    let currentQ = 0;
+    let selectedAnswers = [];
+    let selectedIndex = -1;
+
+    const questionEl = document.getElementById('question-text');
+    const answersEl = document.getElementById('answers-container');
+    const nextBtn = document.getElementById('next-btn');
+    const progressEl = document.getElementById('progress');
+    const progressFill = document.getElementById('progress-fill');
+    const quizContent = document.getElementById('quiz-content');
+    const resultCard = document.getElementById('result-card');
+    const controls = document.getElementById('controls');
+
+    function renderQuestion() {
+      const q = questions[currentQ];
+      questionEl.textContent = q.text;
+      answersEl.innerHTML = '';
+      selectedIndex = -1;
+      nextBtn.disabled = true;
+
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.innerHTML = `<span class="emoji">${ans.emoji}</span><span>${ans.text}</span>`;
+        btn.addEventListener('click', () => selectAnswer(i, ans.value));
+        answersEl.appendChild(btn);
+      });
+
+      progressEl.textContent = `Question ${currentQ + 1} of ${questions.length}`;
+      progressFill.style.width = `${((currentQ) / questions.length) * 100}%`;
+
+      quizContent.classList.remove('fade-in');
+      void quizContent.offsetWidth;
+      quizContent.classList.add('fade-in');
+    }
+
+    function selectAnswer(index, value) {
+      selectedIndex = index;
+      selectedAnswers[currentQ] = value;
+      document.querySelectorAll('.answer-btn').forEach((btn, i) => {
+        btn.classList.toggle('selected', i === index);
+      });
+      nextBtn.disabled = false;
+    }
+
+    function showResult() {
+      // Simple scoring — find most common answer pattern
+      const valueCounts = {};
+      selectedAnswers.forEach(v => { valueCounts[v] = (valueCounts[v] || 0) + 1; });
+      const topValue = Object.entries(valueCounts).sort((a,b) => b[1]-a[1])[0][0];
+      const result = results[topValue] || results['home'];
+
+      quizContent.classList.add('hidden');
+      controls.classList.add('hidden');
+
+      document.getElementById('result-emoji').textContent = result.emoji;
+      document.getElementById('result-title').textContent = result.title;
+      document.getElementById('result-description').textContent = result.description;
+      document.getElementById('result-link-primary').href = result.link;
+      document.getElementById('result-link-secondary').href = result.linkAlt;
+
+      resultCard.classList.remove('hidden');
+      progressFill.style.width = '100%';
+      progressEl.textContent = 'Your result is ready!';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQ++;
+      if (currentQ < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    document.getElementById('restart-btn').addEventListener('click', () => {
+      currentQ = 0;
+      selectedAnswers = [];
+      resultCard.classList.add('hidden');
+      quizContent.classList.remove('hidden');
+      controls.classList.remove('hidden');
+      renderQuestion();
+    });
+
+    // Initialize
+    renderQuestion();
+  </script>
+</body>
 </html>
